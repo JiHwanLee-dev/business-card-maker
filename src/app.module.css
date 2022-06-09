@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  /* display: flex; */
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background-color: #626262;
+}
+
+.app_header {
+  background-color: #282c34;
+}
+
+.root {
+  border: 1px solid red;
+}
