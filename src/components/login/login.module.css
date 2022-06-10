@@ -1,41 +1,51 @@
-.container {
-    border: 1px solid black;
-    background-color: #385461;
-    width: 70%;
-    margin: auto;
-    /* text-align: center; */
-    /* vertical-align: middle; */
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  /* display: flex; */
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background-color: #626262;
 }
 
-.title , .footer {
-    color: white;
-    /* vertical-align: middle; */
-    /* text-align: center; */
+.container {
+  border: 1px solid black;
+  background-color: #385461;
+  width: 70%;
+  margin: auto;
+  /* text-align: center; */
+  /* vertical-align: middle; */
+}
+
+.title,
+.footer {
+  color: white;
+  /* vertical-align: middle; */
+  /* text-align: center; */
 }
 
 .content {
-    color: black;
-    background-color: white;
-    padding: 1em;
-    
+  color: black;
+  background-color: white;
+  padding: 1em;
 }
 
 .btn {
-    font-size: 1em;
-    font: bold;
-    border: 1px solid black;
-    border-radius: 8px;
-    background: white;
-    width: 100%;
-    display: block;
-    margin: auto;
-    margin-bottom: 1em;
-    cursor: pointer;
-    /* border-radius: 50%; */
+  font-size: 1em;
+  font: bold;
+  border: 1px solid black;
+  border-radius: 8px;
+  background: white;
+  width: 100%;
+  display: block;
+  margin: auto;
+  margin-bottom: 1em;
+  cursor: pointer;
+  /* border-radius: 50%; */
 }
 
 .btn_github {
-    width: 100%;
-    display: block;
-    margin: auto;
+  width: 100%;
+  display: block;
+  margin: auto;
 }
