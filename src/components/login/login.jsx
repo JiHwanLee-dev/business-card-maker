@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./login.module.css";
-import { signInWithGoogle } from "../../service/fireBase.js";
+import { signInWithGoogle, signInWithGithub } from "../../service/fireBase.js";
 
 const Login = () => {
   const onSnsBtnClick = (e) => {
@@ -23,7 +23,7 @@ const Login = () => {
         <button className={styles.btn} onClick={signInWithGoogle} name="google">
           Google
         </button>
-        <button className={styles.btn} onClick={onSnsBtnClick}>
+        <button className={styles.btn} onClick={signInWithGithub}>
           Github
         </button>
       </div>

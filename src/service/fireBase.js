@@ -1,6 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  GithubAuthProvider,
+} from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,6 +27,8 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const provider = new GoogleAuthProvider();
+const provider2 = new GithubAuthProvider();
+
 const auth = getAuth();
 
 export const signInWithGoogle = () => {
@@ -44,6 +51,37 @@ export const signInWithGoogle = () => {
       const email = error.customData.email;
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
+};
+
+export const signInWithGithub = () => {
+  signInWithPopup(auth, provider2)
+    .then((result) => {
+      console.log("asds");
+      // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+      const credential = GithubAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+
+      // The signed-in user info.
+      const user = result.user;
+      console.log(token);
+      console.log(user);
+      // ...
+    })
+    .catch((error) => {
+      console.log(`error`);
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.email;
+      // The AuthCredential type that was used.
+      const credential = GithubAuthProvider.credentialFromError(error);
+      console.log(errorCode);
+      console.log(errorMessage);
+      console.log(email);
+      console.log(credential);
       // ...
     });
 };
