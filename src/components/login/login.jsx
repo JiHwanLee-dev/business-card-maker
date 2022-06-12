@@ -4,6 +4,7 @@ import { signInWithGoogle, signInWithGithub } from "../../service/fireBase.js";
 import logo2 from "../../logo192.png";
 
 const Login = () => {
+  const aa = () => {};
   const onSnsBtnClick = (e) => {
     // alert(`v: ${v}`);
     console.log(`onSnsBtncLICK`);
