@@ -2,19 +2,17 @@ import React from "react";
 import styles from "./login.module.css";
 import { signInWithGoogle, signInWithGithub } from "../../service/fireBase.js";
 import logo2 from "../../logo192.png";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const aa = () => {};
-  const onSnsBtnClick = (e) => {
-    // alert(`v: ${v}`);
-    console.log(`onSnsBtncLICK`);
-    console.log(e);
-    const name = e.target.name;
+  const navigate = useNavigate();
 
-    if (name === "google") {
-      //   provider = new firebase() ;
-      //   signInWithGoogle;
-    }
+  const click = async () => {
+    console.log("1111");
+    const aa = await signInWithGoogle();
+    console.log("2222");
+    console.log(aa);
+    navigate("/app");
   };
 
   return (
@@ -24,7 +22,7 @@ const Login = () => {
         <h2 className={styles.title}>Business Card Maker</h2>
         <div className={styles.content}>
           <h2> Login </h2>
-          <button className={styles.btn} onClick={signInWithGoogle}>
+          <button className={styles.btn} onClick={click}>
             Google
           </button>
           <button className={styles.btn} onClick={signInWithGithub}>
@@ -32,6 +30,7 @@ const Login = () => {
           </button>
         </div>
         <h2 className={styles.footer}> Code your dream</h2>
+        <button onClick={click}> test btn </button>
       </div>
     </div>
   );

@@ -1,0 +1,35 @@
+@value makerGreen from '../../common/colors.css';
+
+.wrapper {
+  width: 80%;
+  margin: auto;
+  background-color: makerGreen;
+  padding: 0.1rem;
+}
+
+.container {
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  text-align: center;
+  position: relative;
+}
+
+.logo {
+  height: 3rem;
+}
+
+.title {
+  text-align: center;
+  color: white;
+}
+.btnLogout {
+  padding: 0.6em;
+  border-radius: 1rem;
+  color: white;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* display: inline; */
+}
