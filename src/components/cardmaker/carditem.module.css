@@ -1,0 +1,25 @@
+.container {
+  display: table;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.content1 {
+  /* width: 100%; */
+  display: table-row;
+}
+
+.inputName {
+  display: table-cell;
+  /* width: calc(100% / 3 - 2em); */
+}
+
+.inputCompany {
+  /* width: calc(100% / 3 - 2em); */
+  display: table-cell;
+}
+
+.selectColor {
+  /* width: calc(100% / 3 - 2em); */
+  display: table-cell;
+}

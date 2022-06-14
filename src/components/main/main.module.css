@@ -1,0 +1,19 @@
+.wrapper {
+  width: 90%;
+  margin: auto;
+}
+
+.container {
+  display: flex;
+  background-color: white;
+}
+
+.leftContent {
+  width: 50%;
+  text-align: center;
+}
+
+.rightContent {
+  width: 50%;
+  text-align: center;
+}
