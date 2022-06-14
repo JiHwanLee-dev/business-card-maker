@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
+  signOut,
 } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -83,6 +84,19 @@ export const signInWithGithub = () => {
       console.log(email);
       console.log(credential);
       // ...
+    });
+};
+
+export const logOut = () => {
+  signOut(auth)
+    .then(() => {
+      console.log("Sign-out successful.");
+      // Sign-out successful.
+    })
+    .catch((error) => {
+      console.log("error()");
+      console.log(error);
+      // An error happened.
     });
 };
 

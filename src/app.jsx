@@ -7,23 +7,26 @@ import Layout from "./components/layout/layout";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import Main from "./components/main/main";
+import Userprovider from "./providers/userprovider";
 
 function App() {
   console.log("App()");
   return (
     <>
       <div>
-        <Header />
-        <BrowserRouter>
-          <Routes>
-            {/* <Route element={<Layout />}>
+        <Userprovider>
+          <BrowserRouter>
+            {/* <Header /> */}
+            <Routes>
+              {/* <Route element={<Layout />}>
               <Route path="/" element={<Login />}></Route>
             </Route> */}
-            <Route path="/" element={<Login />}></Route>
-            <Route path="/app" element={<Main />}></Route>
-          </Routes>
-        </BrowserRouter>
-        <Footer />
+              <Route path="/" element={<Login />}></Route>
+              <Route path="/app" element={<Main />}></Route>
+            </Routes>
+          </BrowserRouter>
+          {/* <Footer /> */}
+        </Userprovider>
       </div>
     </>
   );

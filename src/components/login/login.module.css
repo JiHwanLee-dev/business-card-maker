@@ -1,6 +1,8 @@
 .wrapper {
-  width: 100%;
-  min-height: 100vh;
+  width: 80%;
+  /* min-height: 100vh; */
+  margin: auto;
+  margin-top: 6em;
   /* display: flex; */
   align-items: center;
   text-align: center;
@@ -11,10 +13,14 @@
 .container {
   border: 1px solid black;
   background-color: #385461;
-  width: 70%;
+  /* width: 70%; */
   margin: auto;
   /* text-align: center; */
   /* vertical-align: middle; */
+}
+
+.logo {
+  margin-bottom: 2rem;
 }
 
 .title,
