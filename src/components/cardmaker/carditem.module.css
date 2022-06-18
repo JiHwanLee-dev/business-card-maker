@@ -55,6 +55,7 @@
   flex: 1;
   border: 0;
   background-color: makerPink;
+  cursor: pointer;
 }
 
 .btnAdd {
@@ -62,4 +63,5 @@
   border: 0;
   color: white;
   background-color: makerGreen;
+  cursor: pointer;
 }
