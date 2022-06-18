@@ -8,6 +8,8 @@ import {
   signOut,
 } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
+import { getDatabase, set, ref } from "firebase/database";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -16,6 +18,8 @@ import { getAnalytics } from "firebase/analytics";
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  // The value of `databaseURL` depends on the location of the database
+  databaseURL: process.env.REACT_APP_FIREBASE_DB_URL,
   projectId: process.env.REACT_APP_PROJECTID,
   storageBucket: process.env.REACT_APP_STORAGEBUCKED,
   messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
@@ -26,6 +30,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+
+// Get a reference to the database service
+export const database = getDatabase(app);
 
 const provider = new GoogleAuthProvider();
 const provider2 = new GithubAuthProvider();
@@ -85,6 +92,19 @@ export const signInWithGithub = () => {
       console.log(credential);
       // ...
     });
+};
+// db 데이터 생성
+export const dbSet = (userId, name, email, company, color, title, message) => {
+  const db = getDatabase();
+  set(ref(db, "users/" + userId), {
+    username: name,
+    company,
+    email,
+    color,
+    title,
+    message,
+    // profile_picture: imageUrl,
+  });
 };
 
 export const logOut = () => {

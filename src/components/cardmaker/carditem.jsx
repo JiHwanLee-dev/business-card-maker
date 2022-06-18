@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./carditem.module.css";
+import { UserContext } from "../../providers/userprovider";
+import { dbSet } from "../../service/fireBase";
 
 const Carditem = () => {
   console.log(`CardItem()`);
@@ -10,6 +12,9 @@ const Carditem = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [file, setFile] = useState("");
+
+  const user = useContext(UserContext);
+  console.log(user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,12 +29,11 @@ const Carditem = () => {
     console.log(`file : ${file}`);
     console.log(file);
 
-    setName("");
+    dbSet("vmRWbTHmJeM9nRBKpvohojDjxG43", "Lee", "aa@naver.com");
   };
 
   const handleSetFile = (e) => {
     console.log(e.target.files[0]);
-    setFile(e.target.files[0]);
   };
 
   return (
