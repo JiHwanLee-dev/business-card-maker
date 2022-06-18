@@ -1,25 +1,65 @@
+@value makerPink from '../../common/colors.css';
+@value makerGreen from '../../common/colors.css';
+
 .container {
-  display: table;
+  /* display: flex; */
   width: 100%;
   border: 1px solid black;
+  table-layout: fixed;
 }
 
 .content1 {
   /* width: 100%; */
-  display: table-row;
+  /* display: table-row; */
+  display: flex;
+  justify-items: center;
 }
 
+.content2 {
+  display: flex;
+}
+
+.content3 {
+  display: flex;
+}
+
+.content4 {
+  display: flex;
+}
 .inputName {
-  display: table-cell;
+  /* display: table-cell; */
   /* width: calc(100% / 3 - 2em); */
+  flex: 1;
 }
 
 .inputCompany {
   /* width: calc(100% / 3 - 2em); */
-  display: table-cell;
+  /* display: table-cell; */
+  flex: 1;
 }
 
 .selectColor {
   /* width: calc(100% / 3 - 2em); */
-  display: table-cell;
+  flex: 1;
+}
+
+.inputTitle {
+  flex: 1;
+}
+
+.inputEmail {
+  flex: 1;
+}
+
+.btnFile {
+  flex: 1;
+  border: 0;
+  background-color: makerPink;
+}
+
+.btnAdd {
+  flex: 1;
+  border: 0;
+  color: white;
+  background-color: makerGreen;
 }

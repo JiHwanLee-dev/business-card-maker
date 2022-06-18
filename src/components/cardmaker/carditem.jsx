@@ -20,9 +20,16 @@ const Carditem = () => {
       </div>
       <div className={styles.content2}>
         <input type="text" placeholder="Title" className={styles.inputTitle} />
-        <input type="text" className={styles.inputEmail} />
+        <input type="text" placeholder="Email" className={styles.inputEmail} />
       </div>
-      <div> </div>
+      <div className={styles.content3}>
+        <textarea placeholder="Message" className={styles.inputTitle} />
+      </div>
+
+      <div className={styles.content4}>
+        <button className={styles.btnFile}> No file </button>
+        <button className={styles.btnAdd}> Add </button>
+      </div>
     </div>
   );
 };
