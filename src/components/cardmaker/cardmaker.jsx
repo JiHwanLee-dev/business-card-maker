@@ -9,6 +9,11 @@ const Cardmaker = () => {
   console.log(user);
   const [cards, setCards] = useState([]);
 
+  const hadnleDelete = (key) => {
+    console.log("hadnleDelete() ");
+    console.log(key);
+  };
+
   useEffect(() => {
     if (user) {
       dbRead(user.uid, (res) => {
@@ -16,8 +21,13 @@ const Cardmaker = () => {
         let strArr = Object.keys(res); // object to array
         let data = [];
         strArr.map((value) => {
-          data.push(res[value]);
+          let key = { key: value };
+          data.push(Object.assign(key, res[value]));
         });
+        // data.push(res);
+
+        console.log(data);
+
         setCards(data);
       });
     }
@@ -29,7 +39,7 @@ const Cardmaker = () => {
       <ul className={styles.cards}>
         {cards.map((card, index) => (
           <li key={index}>
-            <Carditem key={index} card={card} />
+            <Carditem key={card.key} card={card} handleDelete={hadnleDelete} />
           </li>
         ))}
       </ul>

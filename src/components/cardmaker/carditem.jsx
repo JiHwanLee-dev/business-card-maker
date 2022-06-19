@@ -9,7 +9,7 @@ const Carditem = (props) => {
 
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("Light");
   const [title, setTitle] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -45,29 +45,24 @@ const Carditem = (props) => {
     e.preventDefault();
     console.log("handleSubmit");
     console.log(e);
-    console.log(`name : ${name}`);
-    console.log(`company : ${company}`);
-    console.log(`color : ${color}`);
-    console.log(`title : ${title}`);
-    console.log(`email : ${email}`);
-    console.log(`message : ${message}`);
+    console.log(e.nativeEvent.submitter.value);
     console.log(`file : ${file}`);
     console.log(file);
 
-    console.log(user.uid);
-    console.log(user.displayName);
-    console.log(user.email);
+    if (e.nativeEvent.submitter.value === "Add") {
+      let index = new Date();
 
-    let index = new Date();
-
-    // userId, name, email, company, color, title, message
-    await dbSet(user.uid, index, name, email, company, color, title, message);
-    setName("");
-    setCompany("");
-    setColor("");
-    setTitle("");
-    setEmail("");
-    setMessage("");
+      // userId, name, email, company, color, title, message
+      await dbSet(user.uid, index, name, email, company, color, title, message);
+      setName("");
+      setCompany("");
+      setColor("");
+      setTitle("");
+      setEmail("");
+      setMessage("");
+    } else {
+      props.handleDelete(props.card.key);
+    }
   };
 
   const handleSetFile = (e) => {
@@ -139,9 +134,13 @@ const Carditem = (props) => {
             style={{ display: "none" }}
             onChange={handleSetFile}
           />
-          <input type="submit" className={styles.btnAdd} value="Add" />
+          {Object.keys(props).length === 0 ? (
+            <input type="submit" className={styles.btnAdd} value="Add" />
+          ) : (
+            <input type="submit" className={styles.btnAdd} value="Delete" />
+          )}
 
-          {/* <button className={styles.btnAdd}> Add </button> */}
+          {/* <button className={styles.btnAdd}> te </button> */}
         </div>
       </form>
     </div>
