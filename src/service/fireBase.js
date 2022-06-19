@@ -8,7 +8,8 @@ import {
   signOut,
 } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, set, ref } from "firebase/database";
+import { getDatabase, set, ref, onValue } from "firebase/database";
+import Cardmaker, { readData } from "../components/cardmaker/cardmaker";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -94,9 +95,18 @@ export const signInWithGithub = () => {
     });
 };
 // db 데이터 생성
-export const dbSet = (userId, name, email, company, color, title, message) => {
+export const dbSet = (
+  userId,
+  index,
+  name,
+  email,
+  company,
+  color,
+  title,
+  message,
+) => {
   const db = getDatabase();
-  set(ref(db, "users/" + userId), {
+  set(ref(db, `users/${userId}/}` + index), {
     username: name,
     company,
     email,
@@ -104,6 +114,17 @@ export const dbSet = (userId, name, email, company, color, title, message) => {
     title,
     message,
     // profile_picture: imageUrl,
+  });
+};
+// db 데이터 읽기
+export const dbRead = (userId, callback) => {
+  const db = getDatabase();
+  const starCountRef = ref(db, "users/" + userId);
+  onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+    callback(data);
+    // updateStarCount(postElement, data);
   });
 };
 

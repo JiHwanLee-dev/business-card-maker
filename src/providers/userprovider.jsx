@@ -19,7 +19,9 @@ const Userprovider = (props) => {
         setuser({
           displayName,
           email,
+          uid,
         });
+
         // ...
       } else {
         console.log("signOut");

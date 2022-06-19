@@ -6,13 +6,14 @@
   width: 100%;
   border: 1px solid black;
   table-layout: fixed;
+  margin-bottom: 2rem;
 }
 
 .content1 {
   /* width: 100%; */
   /* display: table-row; */
   display: flex;
-  justify-items: center;
+  /* justify-items: center; */
 }
 
 .content2 {

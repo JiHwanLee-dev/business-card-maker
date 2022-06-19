@@ -11,6 +11,8 @@
 .leftContent {
   width: 50%;
   text-align: center;
+  border-right: 1px solid black;
+  padding: 1rem;
 }
 
 .rightContent {
