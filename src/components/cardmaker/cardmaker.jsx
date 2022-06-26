@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Carditem from "./carditem";
 import { UserContext } from "../../providers/userprovider";
-import { dbRead } from "../../service/fireBase";
+import { dbDelete, dbRead } from "../../service/fireBase";
 import styles from "./cardmaker.module.css";
 
 const Cardmaker = () => {
@@ -12,6 +12,26 @@ const Cardmaker = () => {
   const hadnleDelete = (key) => {
     console.log("hadnleDelete() ");
     console.log(key);
+
+    dbDelete(user.uid, key, () => {
+      console.log("aaaaaaaa");
+      dbRead(user.uid, (res) => {
+        if (res !== null) {
+          console.log(res);
+          let strArr = Object.keys(res); // object to array
+          let data = [];
+          strArr.map((value) => {
+            let key = { key: value };
+            data.push(Object.assign(key, res[value]));
+          });
+          // data.push(res);
+
+          console.log(data);
+
+          setCards(data);
+        }
+      });
+    });
   };
 
   useEffect(() => {

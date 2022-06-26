@@ -16,6 +16,7 @@ import {
   push,
   update,
   child,
+  remove,
 } from "firebase/database";
 import Cardmaker, { readData } from "../components/cardmaker/cardmaker";
 
@@ -124,7 +125,7 @@ export const dbSet = (
     // profile_picture: imageUrl,
   });
 };
-// db 데이터 읽기
+// db 데이터 읽기`
 export const dbRead = (userId, callback) => {
   const db = getDatabase();
   const starCountRef = ref(db, "users/" + userId);
@@ -173,6 +174,19 @@ export const writeNewPost = (
   updates[url] = postData;
   // updates["/user-posts/" + userId + "/" + newPostKey] = postData;
   return update(ref(db), updates);
+};
+
+export const dbDelete = (uid, index, callback) => {
+  const db = getDatabase();
+
+  const deleteData = {};
+
+  const deletes = {};
+  const url = `/users/${uid}/${index}/`;
+
+  console.log(deletes);
+  callback();
+  return remove(ref(db), url);
 };
 
 export const logOut = () => {
