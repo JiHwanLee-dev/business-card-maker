@@ -8,7 +8,15 @@ import {
   signOut,
 } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, set, ref, onValue } from "firebase/database";
+import {
+  getDatabase,
+  set,
+  ref,
+  onValue,
+  push,
+  update,
+  child,
+} from "firebase/database";
 import Cardmaker, { readData } from "../components/cardmaker/cardmaker";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -107,7 +115,7 @@ export const dbSet = (
 ) => {
   const db = getDatabase();
   set(ref(db, `users/${userId}/}` + index), {
-    username: name,
+    name,
     company,
     email,
     color,
@@ -126,6 +134,45 @@ export const dbRead = (userId, callback) => {
     callback(data);
     // updateStarCount(postElement, data);
   });
+};
+// db 데이터 수정
+export const writeNewPost = (
+  userId,
+  index,
+  inputs,
+  // name,
+  // email,
+  // company,
+  // color,
+  // title,
+  // message,
+) => {
+  const db = getDatabase();
+  const { name, email, company, color, title, message } = inputs;
+
+  // A post entry.
+  const postData = {
+    name,
+    company,
+    color,
+    title,
+    email,
+    message,
+  };
+
+  // Get a key for a new Post.
+  const newPostKey2 = push(child(ref(db), `users`)).key; // ??
+  const newPostKey = userId;
+
+  console.log(`newPostKey: ${newPostKey2}`);
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  const updates = {};
+  // updates["/users/" + newPostKey + "/" + index] = postData;
+  const url = `/users/${newPostKey}/${index}`;
+  updates[url] = postData;
+  // updates["/user-posts/" + userId + "/" + newPostKey] = postData;
+  return update(ref(db), updates);
 };
 
 export const logOut = () => {

@@ -17,18 +17,20 @@ const Cardmaker = () => {
   useEffect(() => {
     if (user) {
       dbRead(user.uid, (res) => {
-        console.log(res);
-        let strArr = Object.keys(res); // object to array
-        let data = [];
-        strArr.map((value) => {
-          let key = { key: value };
-          data.push(Object.assign(key, res[value]));
-        });
-        // data.push(res);
+        if (res !== null) {
+          console.log(res);
+          let strArr = Object.keys(res); // object to array
+          let data = [];
+          strArr.map((value) => {
+            let key = { key: value };
+            data.push(Object.assign(key, res[value]));
+          });
+          // data.push(res);
 
-        console.log(data);
+          console.log(data);
 
-        setCards(data);
+          setCards(data);
+        }
       });
     }
   }, []);

@@ -1,18 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./carditem.module.css";
 import { UserContext } from "../../providers/userprovider";
-import { dbSet, dbRead } from "../../service/fireBase";
+import { dbSet, dbRead, writeNewPost } from "../../service/fireBase";
 
 const Carditem = (props) => {
   console.log(`CardItem()`);
-  console.log(props);
 
-  const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
-  const [color, setColor] = useState("Light");
-  const [title, setTitle] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [inputs, setInputs] = useState({
+    name: "",
+    company: "",
+    color: "Light",
+    title: "",
+    email: "",
+    message: "",
+  });
+
+  const { name, company, color, title, email, message } = inputs; // 비구조화 할당을 통해 값 추출
+
+  // const [name, setName] = useState("");
+  // const [company, setCompany] = useState("");
+  // const [color, setColor] = useState("Light");
+  // const [title, setTitle] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [message, setMessage] = useState("");
   const [file, setFile] = useState("");
 
   console.log(Object.keys(props).length);
@@ -20,21 +30,21 @@ const Carditem = (props) => {
   useEffect(() => {
     // 기존에 firebase database의 value 확인
     if (Object.keys(props).length !== 0) {
-      console.log(props.card);
-      // console.log(props.card.username);
-      console.log(props.card.username);
-      console.log(props.card.company);
-      console.log(props.card.color);
-      console.log(props.card.title);
-      console.log(props.card.email);
-      console.log(props.card.message);
+      setInputs({
+        name: props.card.name,
+        company: props.card.company,
+        color: props.card.color,
+        title: props.card.title,
+        email: props.card.email,
+        message: props.card.message,
+      });
 
-      setName(props.card.username);
-      setCompany(props.card.company);
-      setColor(props.card.color);
-      setTitle(props.card.title);
-      setEmail(props.card.email);
-      setMessage(props.card.message);
+      // setName(props.card.username);
+      // setCompany(props.card.company);
+      // setColor(props.card.color);
+      // setTitle(props.card.title);
+      // setEmail(props.card.email);
+      // setMessage(props.card.message);
     }
   }, [props]);
 
@@ -44,24 +54,54 @@ const Carditem = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("handleSubmit");
-    console.log(e);
-    console.log(e.nativeEvent.submitter.value);
-    console.log(`file : ${file}`);
-    console.log(file);
 
     if (e.nativeEvent.submitter.value === "Add") {
       let index = new Date();
 
       // userId, name, email, company, color, title, message
       await dbSet(user.uid, index, name, email, company, color, title, message);
-      setName("");
-      setCompany("");
-      setColor("");
-      setTitle("");
-      setEmail("");
-      setMessage("");
+      setInputs({
+        name: "",
+        company: "",
+        color: "",
+        title: "",
+        email: "",
+        message: "",
+      });
     } else {
       props.handleDelete(props.card.key);
+    }
+  };
+
+  const onChangeEvent = async (e) => {
+    console.log(`onChangeEvent()`);
+    const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+    console.log(`value: ${value} / name: ${name}`);
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+
+    let mInputs = {
+      ...inputs,
+      [name]: value,
+    };
+
+    // setName(value);
+    // await dbSet(user.uid, index, name, email, company, color, title, message);
+
+    if (Object.keys(props).length !== 0) {
+      await writeNewPost(
+        user.uid,
+        props.card.key,
+        mInputs,
+        // name,
+        // email,
+        // company,
+        // color,
+        // title,
+        // message,
+      );
     }
   };
 
@@ -71,28 +111,31 @@ const Carditem = (props) => {
 
   return (
     <div className={styles.container}>
+      <p>dsa [ {name} ] </p>
       <form onSubmit={handleSubmit}>
         <div className={styles.content1}>
           <input
             type="text"
             placeholder="Name"
             className={styles.inputName}
-            onChange={(e) => setName(e.target.value)}
+            // onChange={(e) => setName(e.target.value)}
+            onChange={onChangeEvent}
             value={name}
+            name="name"
           />
           <input
             type="text"
             placeholder="Company"
             className={styles.inputCompany}
-            onChange={(e) => setCompany(e.target.value)}
+            onChange={onChangeEvent}
             value={company}
+            name="company"
           />
           <select
-            name="selectColor"
-            id="selectColor"
             className={styles.selectColor}
-            onChange={(e) => setColor(e.target.value)}
+            onChange={onChangeEvent}
             value={color}
+            name="color"
           >
             <option value="Light"> Light</option>
             <option value="Dark"> Dark</option>
@@ -104,23 +147,26 @@ const Carditem = (props) => {
             type="text"
             placeholder="Title"
             className={styles.inputTitle}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={onChangeEvent}
             value={title}
+            name="title"
           />
           <input
             type="text"
             placeholder="Email"
             className={styles.inputEmail}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={onChangeEvent}
             value={email}
+            name="email"
           />
         </div>
         <div className={styles.content3}>
           <textarea
             placeholder="Message"
             className={styles.inputTitle}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={onChangeEvent}
             value={message}
+            name="message"
           />
         </div>
 
