@@ -13,19 +13,24 @@
   /* width: 100%; */
   /* display: table-row; */
   display: flex;
+  flex-wrap: wrap;
+
   /* justify-items: center; */
 }
 
 .content2 {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .content3 {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .content4 {
   display: flex;
+  flex-wrap: wrap;
 }
 .inputName {
   /* display: table-cell; */
