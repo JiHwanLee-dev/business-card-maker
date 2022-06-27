@@ -49,7 +49,7 @@ const Carditem = (props) => {
   }, [props]);
 
   const user = useContext(UserContext);
-  console.log(user);
+  // console.log(user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,7 +63,7 @@ const Carditem = (props) => {
       setInputs({
         name: "",
         company: "",
-        color: "",
+        color: "Light",
         title: "",
         email: "",
         message: "",

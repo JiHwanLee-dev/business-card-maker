@@ -182,11 +182,14 @@ export const dbDelete = (uid, index, callback) => {
   const deleteData = {};
 
   const deletes = {};
-  const url = `/users/${uid}/${index}/`;
+  const url = `/users/${uid}/${index}`;
 
   console.log(deletes);
+  deletes[url] = null;
+
   callback();
-  return remove(ref(db), url);
+  return update(ref(db), deletes);
+  // return remove(ref(db), url);
 };
 
 export const logOut = () => {
