@@ -1,5 +1,6 @@
 import React from "react";
 import Cardmaker from "../cardmaker/cardmaker";
+import Cardpreview from "../cardpreview/cardpreview";
 import Footer from "../footer/footer";
 import Header from "../header/header";
 import styles from "./main.module.css";
@@ -14,7 +15,8 @@ const Main = () => {
           <Cardmaker />
         </div>
         <div className={styles.rightContent}>
-          <span> Card Preview </span>
+          {/* <span> Card Preview </span> */}
+          <Cardpreview />
         </div>
       </div>
       <Footer />

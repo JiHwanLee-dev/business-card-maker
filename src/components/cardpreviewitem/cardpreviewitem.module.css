@@ -1,0 +1,41 @@
+@value makerShadow from '../../common/colors.css';
+@value makerWheat from '../../common/colors.css';
+
+@value makerShadow from '../../common/colors.css';
+@value makerLightPink from '../../common/colors.css';
+
+.container {
+  width: 100%;
+  display: flex;
+  background-color: makerLightPink;
+  box-shadow: 2px 2px 2px 1px makerShadow;
+  /* border: 1px solid black; */
+  border-radius: 1rem;
+
+  /* padding: 1rem; */
+}
+
+.content {
+  width: 100%;
+  display: block;
+  text-align: start;
+  margin: auto;
+  padding: 1rem;
+}
+
+.img {
+  border-radius: 50%;
+  background-color: aliceblue;
+  margin: 1rem;
+}
+
+.name {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.line {
+  border-top: 2px solid makerWheat;
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}

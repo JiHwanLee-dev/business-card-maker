@@ -111,7 +111,6 @@ const Carditem = (props) => {
 
   return (
     <div className={styles.container}>
-      <p>dsa [ {name} ] </p>
       <form onSubmit={handleSubmit}>
         <div className={styles.content1}>
           <input
