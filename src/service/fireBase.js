@@ -113,6 +113,7 @@ export const dbSet = (
   color,
   title,
   message,
+  file,
 ) => {
   const db = getDatabase();
   set(ref(db, `users/${userId}/}` + index), {
@@ -122,6 +123,7 @@ export const dbSet = (
     color,
     title,
     message,
+    file,
     // profile_picture: imageUrl,
   });
 };
@@ -149,7 +151,7 @@ export const writeNewPost = (
   // message,
 ) => {
   const db = getDatabase();
-  const { name, email, company, color, title, message } = inputs;
+  const { name, email, company, color, title, message, file } = inputs;
 
   // A post entry.
   const postData = {
@@ -159,6 +161,7 @@ export const writeNewPost = (
     title,
     email,
     message,
+    file,
   };
 
   // Get a key for a new Post.

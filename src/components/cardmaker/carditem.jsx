@@ -13,9 +13,10 @@ const Carditem = (props) => {
     title: "",
     email: "",
     message: "",
+    file: "No file",
   });
 
-  const { name, company, color, title, email, message } = inputs; // 비구조화 할당을 통해 값 추출
+  const { name, company, color, title, email, message, file } = inputs; // 비구조화 할당을 통해 값 추출
 
   // const [name, setName] = useState("");
   // const [company, setCompany] = useState("");
@@ -23,7 +24,7 @@ const Carditem = (props) => {
   // const [title, setTitle] = useState("");
   // const [email, setEmail] = useState("");
   // const [message, setMessage] = useState("");
-  const [file, setFile] = useState("");
+  // const [file, setFile] = useState("");
 
   console.log(Object.keys(props).length);
 
@@ -37,6 +38,7 @@ const Carditem = (props) => {
         title: props.card.title,
         email: props.card.email,
         message: props.card.message,
+        file: props.card.file,
       });
 
       // setName(props.card.username);
@@ -59,7 +61,17 @@ const Carditem = (props) => {
       let index = new Date();
 
       // userId, name, email, company, color, title, message
-      await dbSet(user.uid, index, name, email, company, color, title, message);
+      await dbSet(
+        user.uid,
+        index,
+        name,
+        email,
+        company,
+        color,
+        title,
+        message,
+        file,
+      );
       setInputs({
         name: "",
         company: "",
@@ -67,6 +79,7 @@ const Carditem = (props) => {
         title: "",
         email: "",
         message: "",
+        file: "No file",
       });
     } else {
       props.handleDelete(props.card.key);
@@ -75,8 +88,17 @@ const Carditem = (props) => {
 
   const onChangeEvent = async (e) => {
     console.log(`onChangeEvent()`);
-    const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
-    console.log(`value: ${value} / name: ${name}`);
+    alert(props.card.key);
+    return;
+    console.log(props.card.key);
+    let { value, name, files } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+    console.log(e.target);
+    console.log(`value: ${value} / name: ${name} / file: ${files}`);
+    if (name === "file") {
+      console.log(files[0].name);
+      value = files[0].name;
+    }
+
     setInputs({
       ...inputs,
       [name]: value,
@@ -171,13 +193,14 @@ const Carditem = (props) => {
 
         <div className={styles.content4}>
           <label className={styles.btnFile} htmlFor="file">
-            No file
+            {file}
           </label>
           <input
             type="file"
             id="file"
+            name="file"
             style={{ display: "none" }}
-            onChange={handleSetFile}
+            onChange={onChangeEvent}
           />
           {Object.keys(props).length === 0 ? (
             <input type="submit" className={styles.btnAdd} value="Add" />
