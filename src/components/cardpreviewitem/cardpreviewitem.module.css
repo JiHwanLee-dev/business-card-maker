@@ -1,29 +1,44 @@
 @value makerShadow from '../../common/colors.css';
 @value makerWheat from '../../common/colors.css';
-
-@value makerShadow from '../../common/colors.css';
 @value makerLightPink from '../../common/colors.css';
+
+@value makerBlack from '../../common/colors.css';
+@value makerWhite from '../../common/colors.css';
+@value makerColorful from '../../common/colors.css';
 
 .container {
   width: 100%;
   display: flex;
-  background-color: makerLightPink;
+  /* background-color: makerLightPink; */
   box-shadow: 2px 2px 2px 1px makerShadow;
   /* border: 1px solid black; */
   border-radius: 1rem;
-
   /* padding: 1rem; */
 }
 
+.light {
+  background-color: makerWhite;
+}
+
+.dark {
+  background-color: makerBlack;
+  color: white;
+}
+
+.colorful {
+  background: makerColorful;
+  color: white;
+}
+
 .content {
-  width: 100%;
-  display: block;
+  width: 50%;
   text-align: start;
   margin: auto;
   padding: 1rem;
 }
 
 .img {
+  width: 50%;
   border-radius: 50%;
   background-color: aliceblue;
   margin: 1rem;
@@ -38,4 +53,13 @@
   border-top: 2px solid makerWheat;
   margin-top: 0.4em;
   margin-bottom: 0.4em;
+}
+
+.message {
+  word-break: break-all;
+  /* overflow: hidden; */
+  /* white-space: nowrap;
+  text-overflow: ellipsis; */
+  /* word-wrap: break-word; */
+  /* overflow: hidden; */
 }
