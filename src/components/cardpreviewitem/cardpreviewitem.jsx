@@ -7,6 +7,7 @@ const Cardpreviewitem = (props) => {
   console.log("CardPreviewItem()");
   console.log(props);
 
+  const fileUrl = props.card.fileUrl;
   //   const container = useRef();
 
   const [color, setColor] = useState("");
@@ -42,10 +43,10 @@ const Cardpreviewitem = (props) => {
         className={`${styles.container} ${backColor}`}
         style={{ border: backColor }}
       >
-        <div className={styles.img}>
-          <img src="../../logo192.png" alt="" />
-        </div>
         <div className={styles.content}>
+          <img className={styles.img} src={fileUrl} alt="" />
+        </div>
+        <div className={styles.content2}>
           <div>
             <span className={styles.name}> {props.card.name} </span>
           </div>

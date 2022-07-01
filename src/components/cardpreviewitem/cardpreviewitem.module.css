@@ -32,16 +32,21 @@
 
 .content {
   width: 50%;
+  /* background-color: aliceblue; */
+  margin: auto;
+}
+
+.content2 {
+  width: 50%;
   text-align: start;
   margin: auto;
   padding: 1rem;
 }
 
 .img {
-  width: 50%;
   border-radius: 50%;
-  background-color: aliceblue;
-  margin: 1rem;
+  width: 8rem;
+  height: 8rem;
 }
 
 .name {

@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./carditem.module.css";
 import { UserContext } from "../../providers/userprovider";
 import { dbSet, dbRead, writeNewPost } from "../../service/fireBase";
+import { setImage } from "../../service/cloudinary";
 
 const Carditem = (props) => {
   console.log(`CardItem()`);
@@ -14,9 +15,13 @@ const Carditem = (props) => {
     email: "",
     message: "",
     file: "No file",
+    fileUrl: "",
+    fileName: "",
   });
 
-  const { name, company, color, title, email, message, file } = inputs; // 비구조화 할당을 통해 값 추출
+  const [selectFile, setSelectFile] = useState();
+
+  const { name, company, color, title, email, message, file, fileUrl } = inputs; // 비구조화 할당을 통해 값 추출
 
   // const [name, setName] = useState("");
   // const [company, setCompany] = useState("");
@@ -39,6 +44,7 @@ const Carditem = (props) => {
         email: props.card.email,
         message: props.card.message,
         file: props.card.file,
+        fileUrl: props.card.fileUrl,
       });
 
       // setName(props.card.username);
@@ -53,12 +59,37 @@ const Carditem = (props) => {
   const user = useContext(UserContext);
   // console.log(user);
 
+  const hiddenFileInput = useRef(null);
+
+  // Programatically click the hidden file input element
+  // when the Button component is clicked
+  const handleClick = (event) => {
+    hiddenFileInput.current.click();
+  };
+
+  // Call a function (passed as a prop from the parent component)
+  // to handle the user-selected file
+  const handleChange = (event) => {
+    const fileUploaded = event.target.files[0];
+    console.log(fileUploaded);
+    console.log(props.card.key);
+    // props.handleFile(fileUploaded);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("handleSubmit");
 
     if (e.nativeEvent.submitter.value === "Add") {
       let index = new Date();
+
+      console.log(selectFile);
+      const response = await setImage(selectFile);
+      const fileUrl = response.url;
+      console.log(response);
+      console.log(fileUrl);
+
+      // return;
 
       // userId, name, email, company, color, title, message
       await dbSet(
@@ -71,6 +102,7 @@ const Carditem = (props) => {
         title,
         message,
         file,
+        fileUrl,
       );
       setInputs({
         name: "",
@@ -80,23 +112,30 @@ const Carditem = (props) => {
         email: "",
         message: "",
         file: "No file",
+        fileUrl: "",
       });
-    } else {
+    } else if (e.nativeEvent.submitter.value === "Delete") {
       props.handleDelete(props.card.key);
     }
   };
 
   const onChangeEvent = async (e) => {
     console.log(`onChangeEvent()`);
-    alert(props.card.key);
-    return;
-    console.log(props.card.key);
+    // alert(props.card.key);
+    // return;
+    // console.log(props.card.key);
     let { value, name, files } = e.target; // 우선 e.target 에서 name 과 value 를 추출
     console.log(e.target);
     console.log(`value: ${value} / name: ${name} / file: ${files}`);
     if (name === "file") {
       console.log(files[0].name);
-      value = files[0].name;
+      value = files[0].name.split(".")[0];
+      setSelectFile(files[0]);
+
+      const response = await setImage(files[0]);
+      const fileUrl = response.url;
+      console.log(response);
+      console.log(fileUrl);
     }
 
     setInputs({
@@ -134,6 +173,7 @@ const Carditem = (props) => {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
+        {Object.keys(props).length !== 0 ? <span> {props.card.key} </span> : ""}
         <div className={styles.content1}>
           <input
             type="text"
@@ -190,8 +230,18 @@ const Carditem = (props) => {
             name="message"
           />
         </div>
-
         <div className={styles.content4}>
+          <button className={styles.btnFile} onClick={handleClick}>
+            {file}
+          </button>
+          <input
+            type="file"
+            ref={hiddenFileInput}
+            name="file"
+            onChange={onChangeEvent}
+            style={{ display: "none" }}
+          />
+          {/*           
           <label className={styles.btnFile} htmlFor="file">
             {file}
           </label>
@@ -201,7 +251,7 @@ const Carditem = (props) => {
             name="file"
             style={{ display: "none" }}
             onChange={onChangeEvent}
-          />
+          /> */}
           {Object.keys(props).length === 0 ? (
             <input type="submit" className={styles.btnAdd} value="Add" />
           ) : (
